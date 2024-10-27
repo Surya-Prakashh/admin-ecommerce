@@ -17,6 +17,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { OrderedProductsComponent } from './order-track/order-track.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { OrderedProductsComponent } from './order-track/order-track.component';
     CheckoutComponent,
   
     OrderedProductsComponent,
+        AdminComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,15 +3,15 @@ const cors = require("cors");
 const dataService = require("./services/dataServices");
 const server = express();
 const jwt = require("jsonwebtoken");
+const bodyParser = require('body-parser');
+const { Product, addProduct } = require('./services/db'); // Import addProduct
 
-server.use(
-  cors({
-    origin: "http://localhost:4200",
-  })
-);
+server.use(cors());
+server.use(bodyParser.json());
 server.use(express.json());
+
 server.listen(3000, () => {
-  console.log("cart server listening at port number 3000");
+  console.log("Server running on port 3000");
 });
 
 // application specific middleware
@@ -175,4 +175,35 @@ server.post("/addToCheckout", jwtMiddleware, (req, res) => {
     .then((result) => {
       res.status(result.statusCode).json(result);
     });
+});
+
+// Fetch all products
+server.get('/api/products', (req, res) => {
+  Product.find({}, (err, products) => {
+    if (err) {
+      res.status(500).json({ message: 'Error fetching products' });
+    } else {
+      res.status(200).json(products);
+    }
+  });
+});
+
+// Add a new product
+server.post('/api/products', (req, res) => {
+  addProduct(req.body).then((product) => {
+    res.status(201).json(product);
+  }).catch((err) => {
+    res.status(500).json({ message: 'Error adding product' });
+  });
+});
+
+// Delete a product
+server.delete('/api/products/:id', (req, res) => {
+  Product.findByIdAndDelete(req.params.id, (err, product) => {
+    if (err) {
+      res.status(500).json({ message: 'Error deleting product' });
+    } else {
+      res.status(200).json(product);
+    }
+  });
 });

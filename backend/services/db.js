@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+mongoose.set('strictQuery', true); // To suppress the deprecation warning
 mongoose.connect("mongodb://127.0.0.1:27017/foodapp", () => {
   console.log("mongodb connection successful!!");
 });
@@ -17,6 +18,12 @@ const Product = mongoose.model("Product", {
     count: Number,
   },
 });
+
+// Add product function
+const addProduct = (productData) => {
+  const product = new Product(productData);
+  return product.save();
+};
 
 // to store user details
 const User = mongoose.model("User", {
@@ -37,5 +44,6 @@ const User = mongoose.model("User", {
 
 module.exports = {
   Product,
+  addProduct,
   User,
 };

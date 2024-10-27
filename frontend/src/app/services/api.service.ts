@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 const options = {
   headers: new HttpHeaders(),
@@ -17,6 +17,7 @@ export class ApiService {
   apiCart: number[] = [];
   products: any[] = [];
   cartCount = new BehaviorSubject<any[]>([]);
+  private baseUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) {}
 
@@ -198,5 +199,17 @@ export class ApiService {
       'http://localhost:3000/getMyOrders/' + email,
       this.appendToken()
     );
+  }
+
+  getProducts(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/products`);
+  }
+
+  addProduct(product: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/products`, product);
+  }
+
+  deleteProduct(productId: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/products/${productId}`);
   }
 }

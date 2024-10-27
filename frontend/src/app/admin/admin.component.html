@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>Admin Page</h2>
+  
+  <form (submit)="addProduct()">
+    <div class="form-group">
+      <label for="name">Product Name:</label>
+      <input type="text" id="name" [(ngModel)]="newProduct.name" name="name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="number" id="price" [(ngModel)]="newProduct.price" name="price" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="newProduct.description" name="description" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Product</button>
+  </form>
+  
+  <hr>
+  
+  <h3>Existing Products</h3>
+  <ul class="list-group">
+    <li *ngFor="let product of products" class="list-group-item">
+      {{ product.name }} - ${{ product.price }}
+      <button (click)="deleteProduct(product._id)" class="btn btn-danger btn-sm float-end">Delete</button>
+    </li>
+  </ul>
+</div>
