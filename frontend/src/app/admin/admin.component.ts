@@ -7,13 +7,27 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  newProduct = { name: '', price: 0, description: '' };
+  newProduct = { id: 0, title: '', price: 0, description: '', category: '', image: '', rating: { rate: 0, count: 0 } };
   products: any[] = [];
+  adminPassword: string = '';
+  isAuthenticated: boolean = false;
+  private readonly correctPassword: string = 'jay';
 
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
-    this.getProducts();
+    if (this.isAuthenticated) {
+      this.getProducts();
+    }
+  }
+
+  checkPassword(): void {
+    if (this.adminPassword === this.correctPassword) {
+      this.isAuthenticated = true;
+      this.getProducts();
+    } else {
+      alert('Incorrect password');
+    }
   }
 
   getProducts(): void {
@@ -26,7 +40,7 @@ export class AdminComponent implements OnInit {
     this.api.addProduct(this.newProduct).subscribe((result: any) => {
       console.log(result);
       this.getProducts();
-      this.newProduct = { name: '', price: 0, description: '' };
+      this.newProduct = { id: 0, title: '', price: 0, description: '', category: '', image: '', rating: { rate: 0, count: 0 } };
     });
   }
 

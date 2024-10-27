@@ -74,6 +74,7 @@
             "browserTarget": "frontend:build"
           }
         },
+        
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -98,4 +99,5 @@
   "cli": {
     "analytics": "33658d93-6922-4979-9c0c-3dc0edb278f3"
   }
+  
 }

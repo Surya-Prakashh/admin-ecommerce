@@ -13,8 +13,8 @@
                 நம்ம Shopperoo-உ... எப்பவும் Sooperoo!
               </h1>
               <h1 *ngIf="username" class="display-4 fw-bolder lh-1 mb-3">
-                <span class="text-danger">வணக்கம் {{ username }}</span
-                >, start shopping now!
+                <span class="text-danger">வணக்கம் {{ username }}</span>, start
+                shopping now!
               </h1>
             </div>
           </div>
@@ -27,10 +27,10 @@
               style="width: 100%; height: auto;"
             />
           </div>
-            <p class="display-6 fw-normal mb-30 text-secondary">
-             TRENDING NOW !
-            </p>
         </div>
+        <p class="display-6 fw-normal mb-30 text-secondary">
+          TRENDING NOW!
+        </p>
       </div>
     </header>
     <div
@@ -40,7 +40,10 @@
         class="col mb-5"
         *ngFor="let product of products | filter : searchItem : 'title'"
       >
-        <div *ngIf="product === -1" class="d-flex justify-content-center mb-5">
+        <div
+          *ngIf="product === -1"
+          class="d-flex justify-content-center mb-5"
+        >
           <div class="text-center">
             <img
               src="https://cdn-icons-png.flaticon.com/512/1178/1178479.png"
@@ -48,7 +51,7 @@
               class="w-25"
             />
             <p class="fs-3">
-              <span class="text-danger">Sorry, no results found! </span>
+              <span class="text-danger">Sorry, no results found!</span>
             </p>
             <p class="lead" style="width: 50vw">
               Please check the spelling or try searching for something else.
@@ -85,13 +88,13 @@
               </span>
               <span
                 (click)="removeFromWishlist(product.id)"
-                *ngIf="email && wishlist.indexOf(product.id) >= 0"
+                *ngIf="email && wishlist.includes(product.id)"
                 class="ms-5 text-danger"
                 ><i class="fa fa-heart"></i>
               </span>
               <span
                 (click)="addToWishlist(product.id)"
-                *ngIf="email && wishlist.indexOf(product.id) == -1"
+                *ngIf="email && !wishlist.includes(product.id)"
                 class="ms-5 text-secondary"
                 ><i class="fa fa-heart"></i>
               </span>
@@ -106,7 +109,7 @@
             <div class="text-center">
               <a
                 class="btn btn-outline-danger mt-auto w-100"
-                routerLink="/view-product/{{ product.id }}"
+                [routerLink]="['/view-product', product.id]"
                 >View options</a
               >
             </div>

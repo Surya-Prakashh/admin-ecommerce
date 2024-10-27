@@ -65,9 +65,6 @@ export class CartComponent implements OnInit {
             }
           });
         });
-        // console.log(this.cart);
-        this.cart = this.cart;
-        this.products = this.products;
         this.total = 0;
         this.products.map((product: any) => {
           this.total += product.price;
